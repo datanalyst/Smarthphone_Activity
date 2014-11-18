@@ -1,13 +1,13 @@
-#Introduction
+##Introduction
 
 This file describes the data, the variables, and the work that has been performed to clean up the data.
 
-#Data Source
+##Data Source
 
  - Original data: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
  - Original description of the dataset: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
-#Data Set Information
+##Data Set Information
 
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.
 
@@ -34,7 +34,19 @@ The dataset includes the following files:
     'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration.
     'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second.
 
-#Transformation
+##Transformation
+
+R_analysis.R script performs the following steps on the UCI HAR Dataset downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+ 1. Merge the training and the test sets to create one data set.
+ 2. Extract only the measurements on the mean and standard deviation for each measurement.
+ 3. Use descriptive activity names to name the activities in the data set
+ 4. Appropriately label the data set with descriptive activity names.
+ 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+
+Load relevant R libraries:
+library(data.table)
+
+Download and unzip files:
 
 The unzip function is used to extract the zip file in this directory.
 
