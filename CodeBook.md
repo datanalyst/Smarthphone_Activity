@@ -1,6 +1,7 @@
 Introduction
 
 This file describes the data, the variables, and the work that has been performed to clean up the data.
+
 Data Set Description
 
 The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.
@@ -51,7 +52,7 @@ fileUrl <- "http://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20
 download.file(fileUrl, destfile = "UCI HAR Dataset.zip")
 unzip("UCI HAR Dataset.zip")
 
-read.table is used to load the data to R environment for the data, the activities and the subject of both test and training datasets.
+read.table is used to load the data to R environment for the data, the activities and the subject of both test and training datasets. The class labels linked with their activity names are loaded from the activity_labels.txt file.
 
 features = read.table('./UCI HAR Dataset/features.txt',header=FALSE, colClasses="character")
 activities = read.table('./UCI HAR Dataset/activity_labels.txt',header=FALSE,colClasses="character")
@@ -64,7 +65,7 @@ trainData_sub = read.table("./UCI HAR Dataset/train/subject_train.txt",header=FA
 
 Descriptive activity names to name the activities in the data set
 
-The class labels linked with their activity names are loaded from the activity_labels.txt file. The numbers of the testData_act and trainData_act data frames are replaced by those names:
+The numbers of the testData_act and trainData_act data frames are replaced by those names:
 
 testData_act$V1 = factor(testData_act$V1,levels=activities$V1,labels=activities$V2)
 trainData_act$V1 = factor(trainData_act$V1,levels=activities$V1,labels=activities$V2)
@@ -83,8 +84,8 @@ colnames(trainData_sub) = ("Subject")
 Extract only the measurements on the mean and standard deviation for each measurement, via subsetting testData and trainData using the list of mean and std variables.
 
 extract_features <- grepl("mean()|std()", features$V2)
-testData = testData[,extract_features] # 2947 obs. of 79 variables
-trainData = trainData[,extract_features] # 7352 obs. of 79 variables
+testData = testData[,extract_features] 
+trainData = trainData[,extract_features] 
 
 Merge test and training sets into one data set, including the activities
 
