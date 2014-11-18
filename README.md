@@ -1,19 +1,25 @@
-Introduction
+##Getting and Cleaning Data
 
-This repository is hosting the R code for the assignment of the DataScience track's "Getting and Cleaning Data" course which will be peer assessed.
+#Course Project
 
-The purpose of this project is to demonstrate the collection, work with, and cleaning of this data set. Tidy data have been prepared so can be used for later analysis.
+This repository is hosting the R code for the assignment of the DataScience track's "Getting and Cleaning Data" course which will be peer assessed. The purpose of this project is to create one R script called run_analysis.R that does the following:
 
-Data Set
+  1. Merges the training and the test sets to create one data set.
+  2. Extracts only the measurements on the mean and standard deviation for each measurement.
+  3. Uses descriptive activity names to name the activities in the data set
+  4. Appropriately labels the data set with descriptive activity names.
+  5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-The data set "Human Activity Recognition Using Smartphones" has been taken from UCI.
+#Scripts and execution
 
-Execution and files
+In this repository you will find:
 
-The Data Set has been stored in UCI HAR Dataset/ directory.
+  1. The "run_analysis.R" script. Run it with R/R Studio and it will automatically:
+     - download and unzip the data set "Human Activity Recognition Using Smartphones" from UCI in the UCI HAR Dataset   
+       folder in your working directory. 
+     - generate a new file tiny_data.txt in your working directory.
+  
+  2. The "CodeBook.md" file describes the variables, the data, and the work that has been performed to clean up the data.
 
-The CodeBook.md describes the variables, the data, and the work that has been performed to clean up the data.
-
-The run_analysis.R is the script that has been used for this work. It can be loaded in R/Rstudio and executed without any parameters.
-
-As a result of the execution a tidy.csv file is being created, that stores the data (mean and standard deviation of each measurement per activity&subject) for later analysis.
+  3. The "tidy.csv" file - created as a result of the execution - that stores the data (mean and standard deviation of
+     each measurement per activity&subject).
