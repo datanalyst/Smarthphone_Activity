@@ -1,6 +1,6 @@
-##Getting and Cleaning Data
+#Getting and Cleaning Data
 
-#Course Project
+##Course Project
 
 This repository is hosting the R code for the assignment of the DataScience track's "Getting and Cleaning Data" course which will be peer assessed. The purpose of this project is to create one R script called run_analysis.R that does the following:
 
@@ -10,16 +10,13 @@ This repository is hosting the R code for the assignment of the DataScience trac
   4. Appropriately labels the data set with descriptive activity names.
   5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
-#Scripts and execution
+##Scripts and execution
 
 In this repository you will find:
 
   1. The "run_analysis.R" script. Run it with R/R Studio and it will automatically:
-     - download and unzip the data set "Human Activity Recognition Using Smartphones" from UCI in the UCI HAR Dataset   
-       folder in your working directory. 
+     - download and unzip the data set "Human Activity Recognition Using Smartphones" from UCI in the UCI HAR Dataset folder in your working directory. 
      - generate a new file tiny_data.txt in your working directory.
-  
   2. The "CodeBook.md" file describes the variables, the data, and the work that has been performed to clean up the data.
-
   3. The "tidy.csv" file - created as a result of the execution - that stores the data (mean and standard deviation of
      each measurement per activity&subject).
