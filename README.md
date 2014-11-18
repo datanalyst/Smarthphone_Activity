@@ -14,8 +14,13 @@ This repository is hosting the R code for the assignment of the DataScience trac
 
 In this repository you will find:
 
-  1. The "run_analysis.R" script - Run it with R/R Studio and it will automatically:
+  1. The "run_analysis.R" script.
+     Run it with R/R Studio and it will automatically:
      - download the dataset "Human Activity Recognition Using Smartphones" from UCI and unzip it in the UCI HAR Dataset folder in your working directory. 
      - generate a new file tiny_data.txt in your working directory.
-  2. The "CodeBook.md" file - it describes the variables, the data, and the work that has been performed to clean up the data.
-  3. The "tidy.csv" file - it is created as a result of the execution.
+     
+  2. The "CodeBook.md" file.
+     It describes the variables, the data, and the work that has been performed to clean up the data.
+  
+  3. The "tidy.csv" file.
+     It is created as a result of the execution.
