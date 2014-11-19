@@ -60,4 +60,4 @@ Data = rbind(testData,trainData) # 10299 obs. of  81 variables
 
 DT = data.table(Data)
 tidy_data = DT[,lapply(.SD,mean),by="Activity,Subject"]
-write.table(tidy_data,file="tidy_data.csv",sep=",",row.names = FALSE)
+write.table(tidy_data,file="tidy_data.txt",sep=",",row.names = FALSE)
