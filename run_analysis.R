@@ -59,5 +59,5 @@ Data = rbind(testData,trainData) # 10299 obs. of  81 variables
 # Creates a second, independent tidy data set with the average of each variable for each activity and each subject:
 
 DT = data.table(Data)
-tidy = DT[,lapply(.SD,mean),by="Activity,Subject"]
-write.table(tidy,file="tidy.csv",sep=",",row.names = FALSE)
+tidy_data = DT[,lapply(.SD,mean),by="Activity,Subject"]
+write.table(tidy_data,file="tidy_data.csv",sep=",",row.names = FALSE)
