@@ -1,36 +1,19 @@
-##Introduction
+#CodeBook 
 
-The aim of the project is to write a "run_analysis.R" script that does the following:
-  1. Merges the training and the test sets to create one data set.
-  2. Extracts only the measurements on the mean and standard deviation for each measurement. 
-  3. Uses descriptive activity names to name the activities in the data set
-  4. Appropriately labels the data set with descriptive variable names. 
-  5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-  
 This file describes the data, the variables, and the work that has been performed to clean up the data.
 
 ##Data Source
 
-The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
-http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+For this project, I focus on data collected from the accelerometers from the Samsung Galaxy S smartphone, derived from the "Human Activity Recognition Using Smartphones Data Set" which was originally made avaiable here: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 
 Here are the data for the project:
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
-##Data Set Information
+##Human Activity Recognition Using Smartphones Data Set Information
 
-The experiments have been carried out with a group of 30 volunteers within an age bracket of 19-48 years. Each person performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone (Samsung Galaxy S II) on the waist. Using its embedded accelerometer and gyroscope, we captured 3-axial linear acceleration and 3-axial angular velocity at a constant rate of 50Hz. The experiments have been video-recorded to label the data manually. The obtained dataset has been randomly partitioned into two sets, where 70% of the volunteers was selected for generating the training data and 30% the test data.
+I refer you to the README and features.txt files in the original dataset to learn more about the experiment and the feature selection for this dataset. 
 
-The sensor signals (accelerometer and gyroscope) were pre-processed by applying noise filters and then sampled in fixed-width sliding windows of 2.56 sec and 50% overlap (128 readings/window). The sensor acceleration signal, which has gravitational and body motion components, was separated using a Butterworth low-pass filter into body acceleration and gravity. The gravitational force is assumed to have only low frequency components, therefore a filter with 0.3 Hz cutoff frequency was used. From each window, a vector of features was obtained by calculating variables from the time and frequency domain.
-For each record it is provided:
-
-    Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
-    Triaxial Angular velocity from the gyroscope.
-    A 561-feature vector with time and frequency domain variables.
-    Its activity label.
-    An identifier of the subject who carried out the experiment.
-
-The dataset includes the following files:
+For the purpose of this project we will use tho following files included in the original dataset:
 
     'features_info.txt': Shows information about the variables used on the feature vector.
     'features.txt': List of all features.
@@ -40,12 +23,40 @@ The dataset includes the following files:
     'test/X_test.txt': Test set.
     'test/y_test.txt': Test labels.
     'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30.
-    'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis.
-    'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration.
-    'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second.
     
-##Transformation
+From the features.txt file we will select only the mean() and the std () for the following signals:
 
+    tBodyAcc-XYZ
+    tGravityAcc-XYZ
+    tBodyAccJerk-XYZ
+    tBodyGyro-XYZ
+    tBodyGyroJerk-XYZ
+    tBodyAccMag
+    tGravityAccMag
+    tBodyAccJerkMag
+    tBodyGyroMag
+    tBodyGyroJerkMag
+    fBodyAcc-XYZ
+    fBodyAccJerk-XYZ
+    fBodyGyro-XYZ
+    fBodyAccMag
+    fBodyAccJerkMag
+    fBodyGyroMag
+    fBodyGyroJerkMag
+
+Other estimates have been removed for the purpose of this excercise.
+
+Note: features are normalized and bounded within [-1,1].
+
+##Tidy_data Dataset Information
+
+The aim of the project is to write a "run_analysis.R" script that does the following:
+  1. Merges the training and the test sets to create one data set.
+  2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+  3. Uses descriptive activity names to name the activities in the data set
+  4. Appropriately labels the data set with descriptive variable names. 
+  5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+  
 The "run_analysis.R" script performs the following steps on the UCI HAR Dataset:
 
 1. Load relevant R libraries: library(reshape2)
@@ -66,6 +77,3 @@ The "run_analysis.R" script performs the following steps on the UCI HAR Dataset:
 8. The testData is then appended to the trainData dataframe with the rbind function in order to generate a unique dataframe, called Data, containing the means and the standard deviations of all the measurements of both the test and the train samples, together with their activities and their sujbects.
 9. In order to create a second, independent tidy data set with the average of each variable for each activity and each subject we need to "reshape" the Data table. Using the melt function, we first melt the Data dataframe using "Subject" and "Activity" as id - generating the melt_data table. Then using the dcast function, we cast the melted dataframe, calculating the average of the variables for each activity and subject.
 10. Finaly we get a tidy_data table, with 180 obs. of 68 variables. The new dataset is saved with the write.table function in "tidy_data.txt" file in your local working directory.
-
-
-
