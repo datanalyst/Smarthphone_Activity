@@ -1,11 +1,21 @@
 ##Introduction
 
+The aim of the project is to write a "run_analysis.R" script that does the following:
+  1. Merges the training and the test sets to create one data set.
+  2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+  3. Uses descriptive activity names to name the activities in the data set
+  4. Appropriately labels the data set with descriptive variable names. 
+  5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+  
 This file describes the data, the variables, and the work that has been performed to clean up the data.
 
 ##Data Source
 
- - Original data: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
- - Original description of the dataset: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+The data linked to from the course website represent data collected from the accelerometers from the Samsung Galaxy S smartphone. A full description is available at the site where the data was obtained:
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
+
+Here are the data for the project:
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
 ##Data Set Information
 
@@ -33,74 +43,29 @@ The dataset includes the following files:
     'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis.
     'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration.
     'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second.
-
+    
 ##Transformation
 
-R_analysis.R script performs the following steps on the UCI HAR Dataset downloaded from https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
- 1. Merge the training and the test sets to create one data set.
- 2. Extract only the measurements on the mean and standard deviation for each measurement.
- 3. Use descriptive activity names to name the activities in the data set
- 4. Appropriately label the data set with descriptive activity names.
- 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+The "run_analysis.R" script performs the following steps on the UCI HAR Dataset:
 
-Load relevant R libraries:
-library(data.table)
+1. Load relevant R libraries: library(reshape2)
+2. Download UCI data (with the download function) from the URL and extracts the zipped files in a UCI HAR Dataset folder in your local working directory (with the unzip function)
+3. With the read.table function, it loads from UCI HAR Dataset folder into R environment:
+   - the features.txt file into the dataframe "features"
+   - the activity_labels.txt file into the dataframe "activities"
+   - the subject_test.txt file into the dataframes "testData_sub"
+   - the y_test.txt file into the dataframe "testData_act"
+   - the X_test.txt file into the dataframe "testData"
+   - the subject_train.txt file into the dataframes "trainData_sub"
+   - the y_train.txt file into the dataframe "trainData_act"
+   - the X_train.txt file into the dataframe "trainData"
+4. Replaces the activity class names in the testData_act and trainData_act dataframes by their label names.
+5. Using the colnames function - testData and trainData dataframes are labeled, using the features.txt, with the information about the variables used on the feature vector. The Activity and Subject columns are also named properly.
+6. With the grepl function, it creates a list of mean and std variables (extract_features) that it uses to extract from the test and the train dataframes only the measurements on the mean and standard deviation for each measurement, via subsetting testData and trainData.
+7. With the cbind function testData and trainData are respectively merged to their activities and their subjects.
+8. The testData is then appended to the trainData dataframe with the rbind function in order to generate a unique dataframe, called Data, containing the means and the standard deviations of all the measurements of both the test and the train samples, together with their activities and their sujbects.
+9. In order to create a second, independent tidy data set with the average of each variable for each activity and each subject we need to "reshape" the Data table. Using the melt function, we first melt the Data dataframe using "Subject" and "Activity" as id - generating the melt_data table. Then using the dcast function, we cast the melted dataframe, calculating the average of the variables for each activity and subject.
+10. Finaly we get a tidy_data table, with 180 obs. of 68 variables. The new dataset is saved with the write.table function in "tidy_data.txt" file in your local working directory.
 
-Download and unzip files:
 
-The unzip function is used to extract the zip file in this directory.
 
-fileUrl <- "http://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-download.file(fileUrl, destfile = "UCI HAR Dataset.zip")
-unzip("UCI HAR Dataset.zip")
-
-read.table is used to load the data to R environment for the data, the activities and the subject of both test and training datasets. The class labels linked with their activity names are loaded from the activity_labels.txt file.
-
-features = read.table('./UCI HAR Dataset/features.txt',header=FALSE, colClasses="character")
-activities = read.table('./UCI HAR Dataset/activity_labels.txt',header=FALSE,colClasses="character")
-testData = read.table("./UCI HAR Dataset/test/X_test.txt",header=FALSE) # 2947 obs. of 561 variables
-testData_act = read.table("./UCI HAR Dataset/test/y_test.txt",header=FALSE) # 7352 obs. of 561 variables
-testData_sub = read.table("./UCI HAR Dataset/test/subject_test.txt",header=FALSE)
-trainData = read.table("./UCI HAR Dataset/train/X_train.txt",header=FALSE)
-trainData_act = read.table("./UCI HAR Dataset/train/y_train.txt",header=FALSE)
-trainData_sub = read.table("./UCI HAR Dataset/train/subject_train.txt",header=FALSE)
-
-Descriptive activity names to name the activities in the data set
-
-The numbers of the testData_act and trainData_act data frames are replaced by those names:
-
-testData_act$V1 = factor(testData_act$V1,levels=activities$V1,labels=activities$V2)
-trainData_act$V1 = factor(trainData_act$V1,levels=activities$V1,labels=activities$V2)
-
-Appropriately labels the data set with descriptive activity names
-
-Each data frame of the data set is labeled - using the features.txt - with the information about the variables used on the feature vector. The Activity and Subject columns are also named properly before merging them to the test and train dataset.
-
-colnames(testData) = features$V2
-colnames(trainData) = features$V2
-colnames(testData_act) = ("Activity")
-colnames(trainData_act) = ("Activity")
-colnames(testData_sub) = ("Subject")
-colnames(trainData_sub) = ("Subject")
-
-Extract only the measurements on the mean and standard deviation for each measurement, via subsetting testData and trainData using the list of mean and std variables.
-
-extract_features <- grepl("mean()|std()", features$V2)
-testData = testData[,extract_features] 
-trainData = trainData[,extract_features] 
-
-Merge test and training sets into one data set, including the activities
-
-The Activity and Subject columns are appended to the test and train data frames, and then are both merged in the Data data frame.
-
-testData = cbind(testData_sub,testData_act,testData)
-trainData = cbind(trainData_sub,trainData_act,trainData)
-Data = rbind(testData,trainData) 
-
-Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-
-Finaly we get a tidy data table, that is created with the average of each measurement per activity/subject combination. The new dataset is saved in tidy.csv file.
-
-DT = data.table(Data)
-tidy = DT[,lapply(.SD,mean),by="Activity,Subject"]
-write.table(tidy,file="tidy.csv",sep=",",row.names = FALSE)
