@@ -48,14 +48,7 @@ Note: features are normalized and bounded within [-1,1].
 
 ##Tidy_data Dataset Information
 
-The aim of the project is to write a "run_analysis.R" script that does the following:
-  1. Merges the training and the test sets to create one data set.
-  2. Extracts only the measurements on the mean and standard deviation for each measurement. 
-  3. Uses descriptive activity names to name the activities in the data set
-  4. Appropriately labels the data set with descriptive variable names. 
-  5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
-  
-The "run_analysis.R" script performs the following steps on the UCI HAR Dataset:
+To generate the tidy_data dataset, the "run_analysis.R" script has to be run. It performs the following steps on the UCI HAR Dataset:
 
 1. Load relevant R libraries: library(reshape2)
 2. Download UCI data (with the download function) from the URL and extracts the zipped files in a UCI HAR Dataset folder in your local working directory (with the unzip function)
