@@ -11,7 +11,8 @@ The purpose of this project is to create one R script called run_analysis.R that
 2. The "run_analysis.R" file contains the R code that does the following:
   - downloads the dataset "Human Activity Recognition Using Smartphones" from UCI
   - unzips data in the UCI HAR Dataset folder in your working directory 
-  - generates a new file "tidy_data.txt" in your working directory.
+  - performs data cleaning on UCI data
+  - generates a tidy data - called "tidy_data.txt" - in your working directory.
   
 ##Execution
 
