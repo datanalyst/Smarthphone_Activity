@@ -13,7 +13,7 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 I refer you to the README and features.txt files in the original dataset to learn more about the experiment and the feature selection for this dataset. 
 
-For the purpose of this project we will use tho following files included in the original dataset:
+For the purpose of this project we will use the following files included in the original dataset:
 
     'features_info.txt': Shows information about the variables used on the feature vector.
     'features.txt': List of all features.
@@ -24,7 +24,7 @@ For the purpose of this project we will use tho following files included in the 
     'test/y_test.txt': Test labels.
     'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30.
     
-From the features.txt file we will select only the mean() and the std () for the following signals:
+We will use the variables within each of the above file, with an exception. From the features.txt file we will select only the mean() and the std () for the following signals:
 
     tBodyAcc-XYZ
     tGravityAcc-XYZ
@@ -43,8 +43,6 @@ From the features.txt file we will select only the mean() and the std () for the
     fBodyAccJerkMag
     fBodyGyroMag
     fBodyGyroJerkMag
-
-Other estimates have been removed for the purpose of this excercise.
 
 Note: features are normalized and bounded within [-1,1].
 
@@ -76,4 +74,4 @@ The "run_analysis.R" script performs the following steps on the UCI HAR Dataset:
 7. With the cbind function testData and trainData are respectively merged to their activities and their subjects.
 8. The testData is then appended to the trainData dataframe with the rbind function in order to generate a unique dataframe, called Data, containing the means and the standard deviations of all the measurements of both the test and the train samples, together with their activities and their sujbects.
 9. In order to create a second, independent tidy data set with the average of each variable for each activity and each subject we need to "reshape" the Data table. Using the melt function, we first melt the Data dataframe using "Subject" and "Activity" as id - generating the melt_data table. Then using the dcast function, we cast the melted dataframe, calculating the average of the variables for each activity and subject.
-10. Finaly we get a tidy_data table, with 180 obs. of 68 variables. The new dataset is saved with the write.table function in "tidy_data.txt" file in your local working directory.
+10. Finaly we get a tidy_data table, with 180 obs. of 68 variables. The new dataset is saved with the write.table function in "tidy_data.txt" file in your local working directory. 
