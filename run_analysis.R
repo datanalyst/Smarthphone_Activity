@@ -1,5 +1,6 @@
 # This script will perform the following steps on the UCI HAR Dataset downloaded from
-# https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
+# https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip:
+
 # 1. Merge the training and the test sets to create one data set.
 # 2. Extract only the measurements on the mean and standard deviation for each measurement.
 # 3. Use descriptive activity names to name the activities in the data set
@@ -9,7 +10,7 @@
 # Load relevant R libraries:
 library(reshape2)  # used for melt/dcast
 
-# Download and unzip files:
+# Download and unzip files from UCL website:
 fileUrl <- "http://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
 download.file(fileUrl, destfile = "UCI HAR Dataset.zip")
 unzip("UCI HAR Dataset.zip")
@@ -36,12 +37,12 @@ colnames(trainData_act) = ("Activity")
 colnames(testData_sub) = ("Subject")
 colnames(trainData_sub) = ("Subject")
 
-# 2. Extract only the measurements on the mean and standard deviation for each measurement:
+# 2. Extract only the measurements on the mean() and standard deviation() for each measurement:
 extract_features <- (grepl("mean", features$V2) | grepl("std", features$V2)) & !grepl("-meanFreq..",features$V2)
 testData = testData[,extract_features] # 2947 obs. of 66 variables
 trainData = trainData[,extract_features] # 7352 obs. of 66 variables
 
-# 1. Merge test and training sets into one data set, including the activities:
+# 1. Merge test and training sets into one data set - called Data - including the activities:
 testData = cbind(testData_sub,testData_act,testData) #2947 obs. of  68 variables
 trainData = cbind(trainData_sub,trainData_act,trainData) #7352 obs. of  68 variables
 Data = rbind(testData,trainData) # 10299 obs. of 68 variables
@@ -66,7 +67,7 @@ id_labels = c("Subject", "Activity")
 data_labels = setdiff(colnames(Data), id_labels)
 melt_data = melt(Data, id = id_labels, measure.vars = data_labels)
 
-# Cast the melted table, but calculating the mean of the "variable"
+# Cast the melted table, but calculating the average of the variables for each activity and subject:
 tidy_data = dcast(melt_data, Subject + Activity ~ variable, mean) #180 obs. of  68 variables
 write.table(tidy_data, file = "./tidy_data.txt",row.names = FALSE) # this is the final output, as a txt file
 
