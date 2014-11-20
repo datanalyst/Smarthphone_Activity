@@ -98,22 +98,22 @@ Note: features are normalized and bounded within [-1,1].
 
 ##Transformations
 
-###Load test and training sets and the activities
+###Load data from UCI
 
 Load relevant R libraries:
 
     library(reshape2)
 
-Download UCI data (with the download function) from the URL related to the UCI website: 
+To download data from UCI website, I use the download function : 
 
     fileUrl <- "http://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
     download.file(fileUrl, destfile = "UCI HAR Dataset.zip")
     
-Extracts the zipped files in a UCI HAR Dataset folder in your local working directory with the unzip function:
+The unzip function extracts the zipped files in an UCI HAR Dataset folder in your local working directory:
 
     unzip("UCI HAR Dataset.zip")
    
-read.table function is used to load into R environment data, activities and subjects of both test and training datasets, as well as the features and the activity_labels:
+read.table function is used to load into R environment: data, activities, subjects of both test and training datasets, as well as the features and the activity_labels:
 
     features = read.table('./UCI HAR Dataset/features.txt',header=FALSE, colClasses="character")
     activities = read.table('./UCI HAR Dataset/activity_labels.txt',header=FALSE,colClasses="character")
@@ -144,13 +144,13 @@ Each data frame of the data set is labeled - using the features.txt - with the i
 
 ###Extract only the measurements on the mean and standard deviation for each measurement
 
-A list of mean() and std() variables (extract_features) is created used the grepl function. It is used to extract from the test and the train dataframes only the measurements on the mean and standard deviation for each measurement, via subsetting testData and trainData.
+A list of mean() and std() variables is created via the grepl function in the extract_features list. It is used to extract the measurements on the mean and standard deviation for each measurement from the test and the train dataframes, via subsetting testData and trainData.
 
     extract_features <- (grepl("mean", features$V2) | grepl("std", features$V2)) & !grepl("-meanFreq..",features$V2)
     testData = testData[,extract_features] 
     trainData = trainData[,extract_features] 
 
-###Merge test and training sets into one data set, including the activities
+###Merge test and training sets into one data set
 
 With the cbind function, testData and trainData are respectively merged to their activities and their subjects.
 
@@ -163,16 +163,16 @@ testData table is then appended to the trainData dataframe with the rbind functi
 
 ###Creates a second, independent tidy data set with the average of each variable for each activity and each subject
 
-To get the average of each variable for each activity and each subject I need to "reshape" the Data table. Using the melt function, I first melt the Data dataframe using "Subject" and "Activity" as id - generating the melt_data table.
+To get the average of each variable for each activity and subject I need to "reshape" the Data table. Using the melt function, I first melt the Data dataframe using "Subject" and "Activity" as ids - generating the melt_data table.
 
     id_labels = c("Subject", "Activity")
     data_labels = setdiff(colnames(Data), id_labels)
     melt_data = melt(Data, id = id_labels, measure.vars = data_labels)
 
-Then using the dcast function, I cast the melted dataframe, calculating the average of the variables for each activity and subject. Finaly a tidy data table is created with the average of each measurement per activity/subject combination. 
+Then the melted dataframe is casted using the dcast function, calculating the average of the variables for each activity and subject. Finally a tidy data table is created with the average of each measurement per activity/subject combination. 
 
     tidy_data = dcast(melt_data, Subject + Activity ~ variable, mean)
 
-The new dataset is saved with the write.table function in "tidy_data.txt" file in local working directory. 
+The new dataset is saved with the write.table function in a "tidy_data.txt" file that is stored in local working directory. 
 
     write.table(tidy_data, file = "./tidy_data.txt",row.names = FALSE)
