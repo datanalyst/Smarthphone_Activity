@@ -17,25 +17,25 @@ The sensor signals (accelerometer and gyroscope) were pre-processed by applying 
 
 ###For each record it is provided:
 
-    - Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
-    - Triaxial Angular velocity from the gyroscope.
-    - A 561-feature vector with time and frequency domain variables.
-    - Its activity label.
-    - An identifier of the subject who carried out the experiment.
+    Triaxial acceleration from the accelerometer (total acceleration) and the estimated body acceleration.
+    Triaxial Angular velocity from the gyroscope.
+    A 561-feature vector with time and frequency domain variables.
+    Its activity label.
+    An identifier of the subject who carried out the experiment.
 
 ###The dataset includes the following files:
 
-    - 'features_info.txt': Shows information about the variables used on the feature vector.
-    - 'features.txt': List of all features.
-    - 'activity_labels.txt': Links the class labels with their activity name.
-    - 'train/X_train.txt': Training set.
-    - 'train/y_train.txt': Training labels.
-    - 'test/X_test.txt': Test set.
-    - 'test/y_test.txt': Test labels.
-    - 'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30.
-    - 'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis.
-    - 'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration.
-    - 'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second.
+    'features_info.txt': Shows information about the variables used on the feature vector.
+    'features.txt': List of all features.
+    'activity_labels.txt': Links the class labels with their activity name.
+    'train/X_train.txt': Training set.
+    'train/y_train.txt': Training labels.
+    'test/X_test.txt': Test set.
+    'test/y_test.txt': Test labels.
+    'train/subject_train.txt': Each row identifies the subject who performed the activity for each window sample. Its range is from 1 to 30.
+    'train/Inertial Signals/total_acc_x_train.txt': The acceleration signal from the smartphone accelerometer X axis in standard gravity units 'g'. Every row shows a 128 element vector. The same description applies for the 'total_acc_x_train.txt' and 'total_acc_z_train.txt' files for the Y and Z axis.
+    'train/Inertial Signals/body_acc_x_train.txt': The body acceleration signal obtained by subtracting the gravity from the total acceleration.
+    'train/Inertial Signals/body_gyro_x_train.txt': The angular velocity vector measured by the gyroscope for each window sample. The units are radians/second.
 
 ##Variables
 
@@ -101,27 +101,27 @@ Note: features are normalized and bounded within [-1,1].
 
 Load relevant R libraries:
 
-- library(reshape2)
+    library(reshape2)
 
 Download UCI data (with the download function) from the URL related to the UCI website: 
 
-- fileUrl <- "http://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-- download.file(fileUrl, destfile = "UCI HAR Dataset.zip")
-
+    fileUrl <- "http://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+    download.file(fileUrl, destfile = "UCI HAR Dataset.zip")
+    
 Extracts the zipped files in a UCI HAR Dataset folder in your local working directory with the unzip function:
 
-- unzip("UCI HAR Dataset.zip")
-
+    unzip("UCI HAR Dataset.zip")
+   
 read.table function is used to load into R environment data, activities and subjects of both test and training datasets, as well as the features and the activity_labels:
 
-- features = read.table('./UCI HAR Dataset/features.txt',header=FALSE, colClasses="character")
-- activities = read.table('./UCI HAR Dataset/activity_labels.txt',header=FALSE,colClasses="character")
-- testData = read.table("./UCI HAR Dataset/test/X_test.txt",header=FALSE) 
-- testData_act = read.table("./UCI HAR Dataset/test/y_test.txt",header=FALSE) 
-- testData_sub = read.table("./UCI HAR Dataset/test/subject_test.txt",header=FALSE)
-- trainData = read.table("./UCI HAR Dataset/train/X_train.txt",header=FALSE)
-- trainData_act = read.table("./UCI HAR Dataset/train/y_train.txt",header=FALSE)
-- trainData_sub = read.table("./UCI HAR Dataset/train/subject_train.txt",header=FALSE)
+    features = read.table('./UCI HAR Dataset/features.txt',header=FALSE, colClasses="character")
+    activities = read.table('./UCI HAR Dataset/activity_labels.txt',header=FALSE,colClasses="character")
+    testData = read.table("./UCI HAR Dataset/test/X_test.txt",header=FALSE)
+    testData_act = read.table("./UCI HAR Dataset/test/y_test.txt",header=FALSE) 
+    testData_sub = read.table("./UCI HAR Dataset/test/subject_test.txt",header=FALSE)
+    trainData = read.table("./UCI HAR Dataset/train/X_train.txt",header=FALSE)
+    trainData_act = read.table("./UCI HAR Dataset/train/y_train.txt",header=FALSE)
+    trainData_sub = read.table("./UCI HAR Dataset/train/subject_train.txt",header=FALSE)
 
 ###Descriptive activity names to name the activities in the data set
 
