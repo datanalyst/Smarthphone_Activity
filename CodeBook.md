@@ -48,51 +48,52 @@ Finally a Fast Fourier Transform (FFT) was applied to some of these signals prod
 These signals were used to estimate variables of the feature vector for each pattern:
 '-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
 
-   -  tBodyAcc-XYZ
-   -  tGravityAcc-XYZ
-   -  tBodyAccJerk-XYZ
-   -  tBodyGyro-XYZ
-   -  tBodyGyroJerk-XYZ
-   -  tBodyAccMag
-   -  tGravityAccMag
-   -  tBodyAccJerkMag
-   -  tBodyGyroMag
-   -  tBodyGyroJerkMag
-   -  fBodyAcc-XYZ
-   -  fBodyAccJerk-XYZ
-   -  fBodyGyro-XYZ
-   -  fBodyAccMag
-   -  fBodyAccJerkMag
-   -  fBodyGyroMag
-   -  fBodyGyroJerkMag
+    tBodyAcc-XYZ
+    tGravityAcc-XYZ
+    tBodyAccJerk-XYZ
+    tBodyGyro-XYZ
+    tBodyGyroJerk-XYZ
+    tBodyAccMag
+    tGravityAccMag
+    tBodyAccJerkMag
+    tBodyGyroMag
+    tBodyGyroJerkMag
+    fBodyAcc-XYZ
+    fBodyAccJerk-XYZ
+    fBodyGyro-XYZ
+    fBodyAccMag
+    fBodyAccJerkMag
+    fBodyGyroMag
+    fBodyGyroJerkMag
 
 The set of variables that were estimated from these signals are: 
 
-- mean(): Mean value
-- std(): Standard deviation
-- mad(): Median absolute deviation
-- max(): Largest value in array
-- min(): Smallest value in array
-- sma(): Signal magnitude area
-- energy(): Energy measure. Sum of the squares divided by the number of values. 
-- iqr(): Interquartile range 
-- entropy(): Signal entropy
-- arCoeff(): Autorregresion coefficients with Burg order equal to 4
-- correlation(): correlation coefficient between two signals
-- maxInds(): index of the frequency component with largest magnitude
-- meanFreq(): Weighted average of the frequency components to obtain a mean frequency
-- skewness(): skewness of the frequency domain signal 
-- kurtosis(): kurtosis of the frequency domain signal 
-- bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.
-- angle(): Angle between to vectors.
+    mean(): Mean value
+    std(): Standard deviation
+    mad(): Median absolute deviation
+    max(): Largest value in array
+    min(): Smallest value in array
+    sma(): Signal magnitude area
+    energy(): Energy measure. Sum of the squares divided by the number of values. 
+    iqr(): Interquartile range 
+    entropy(): Signal entropy
+    arCoeff(): Autorregresion coefficients with Burg order equal to 4
+    correlation(): correlation coefficient between two signals
+    maxInds(): index of the frequency component with largest magnitude
+    meanFreq(): Weighted average of the frequency components to obtain a mean frequency
+    skewness(): skewness of the frequency domain signal 
+    kurtosis(): kurtosis of the frequency domain signal 
+    bandsEnergy(): Energy of a frequency interval within the 64 bins of the FFT of each window.
+    angle(): Angle between to vectors.
 
 Additional vectors obtained by averaging the signals in a signal window sample. These are used on the angle() variable:
 
-- gravityMean
-- tBodyAccMean
-- tBodyAccJerkMean
-- tBodyGyroMean
-- tBodyGyroJerkMean
+    gravityMean
+    tBodyAccMean
+    tBodyAccJerkMean
+    tBodyGyroMean
+    tBodyGyroJerkMean
+
 Note: features are normalized and bounded within [-1,1].
 
 ##Transformations
@@ -127,51 +128,51 @@ read.table function is used to load into R environment data, activities and subj
 
 The class labels linked with their activity names are loaded from the activity_labels.txt file. The numbers of the testData_act and trainData_act data frames are replaced by those names:
 
-- testData_act$V1 = factor(testData_act$V1,levels=activities$V1,labels=activities$V2)
-- trainData_act$V1 = factor(trainData_act$V1,levels=activities$V1,labels=activities$V2)
+    testData_act$V1 = factor(testData_act$V1,levels=activities$V1,labels=activities$V2)
+    trainData_act$V1 = factor(trainData_act$V1,levels=activities$V1,labels=activities$V2)
 
 ###Appropriately labels the data set with descriptive activity names
 
 Each data frame of the data set is labeled - using the features.txt - with the information about the variables used on the feature vector. The Activity and Subject columns are also named properly before merging them to the test and train dataset.
 
-- colnames(testData) = features$V2
-- colnames(trainData) = features$V2
-- colnames(testData_act) = ("Activity")
-- colnames(trainData_act) = ("Activity")
-- colnames(testData_sub) = ("Subject")
-- colnames(trainData_sub) = ("Subject")
+    colnames(testData) = features$V2
+    colnames(trainData) = features$V2
+    colnames(testData_act) = ("Activity")
+    colnames(trainData_act) = ("Activity")
+    colnames(testData_sub) = ("Subject")
+    colnames(trainData_sub) = ("Subject")
 
 ###Extract only the measurements on the mean and standard deviation for each measurement
 
 A list of mean() and std() variables (extract_features) is created used the grepl function. It is used to extract from the test and the train dataframes only the measurements on the mean and standard deviation for each measurement, via subsetting testData and trainData.
 
-- extract_features <- (grepl("mean", features$V2) | grepl("std", features$V2)) & !grepl("-meanFreq..",features$V2)
-- testData = testData[,extract_features] 
-- trainData = trainData[,extract_features] 
+    extract_features <- (grepl("mean", features$V2) | grepl("std", features$V2)) & !grepl("-meanFreq..",features$V2)
+    testData = testData[,extract_features] 
+    trainData = trainData[,extract_features] 
 
 ###Merge test and training sets into one data set, including the activities
 
 With the cbind function, testData and trainData are respectively merged to their activities and their subjects.
 
-- testData = cbind(testData_sub,testData_act,testData) 
-- trainData = cbind(trainData_sub,trainData_act,trainData) 
+    testData = cbind(testData_sub,testData_act,testData) 
+    trainData = cbind(trainData_sub,trainData_act,trainData) 
 
 testData table is then appended to the trainData dataframe with the rbind function to generate a Data dataframe, containing the means and the standard deviations of all the measurements of both the test and the train samples, together with their activities and sujbects.
 
-- Data = rbind(testData,trainData) 
+    Data = rbind(testData,trainData) 
 
 ###Creates a second, independent tidy data set with the average of each variable for each activity and each subject
 
 To get the average of each variable for each activity and each subject I need to "reshape" the Data table. Using the melt function, I first melt the Data dataframe using "Subject" and "Activity" as id - generating the melt_data table.
 
-- id_labels = c("Subject", "Activity")
-- data_labels = setdiff(colnames(Data), id_labels)
-- melt_data = melt(Data, id = id_labels, measure.vars = data_labels)
+    id_labels = c("Subject", "Activity")
+    data_labels = setdiff(colnames(Data), id_labels)
+    melt_data = melt(Data, id = id_labels, measure.vars = data_labels)
 
 Then using the dcast function, I cast the melted dataframe, calculating the average of the variables for each activity and subject. Finaly a tidy data table is created with the average of each measurement per activity/subject combination. 
 
-- tidy_data = dcast(melt_data, Subject + Activity ~ variable, mean)
+    tidy_data = dcast(melt_data, Subject + Activity ~ variable, mean)
 
 The new dataset is saved with the write.table function in "tidy_data.txt" file in local working directory. 
 
-- write.table(tidy_data, file = "./tidy_data.txt",row.names = FALSE)
+    write.table(tidy_data, file = "./tidy_data.txt",row.names = FALSE)
