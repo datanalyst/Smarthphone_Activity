@@ -4,7 +4,7 @@ This file describes the data, the variables, and the work that has been performe
 
 ##Data Source
 
-For this project, I used data collected from the accelerometers from the Samsung Galaxy S smartphone and derived from the "Human Activity Recognition Using Smartphones Data Set" (originally made avaiable here: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).
+For this project, I use data collected from the accelerometers from the Samsung Galaxy S smartphone and derived from the "Human Activity Recognition Using Smartphones Data Set" (originally made avaiable here: http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones).
 
 Here are the data for the project:
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
