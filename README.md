@@ -1,8 +1,6 @@
-##Introduction
+##Course Project
 
 This repository is hosting the R code for the assignment of the Coursera DataScience track's "Getting and Cleaning Data" course. 
-
-##Course Project
 
 The purpose of this project is to create an R script called run_analysis.R that collects and performs data cleaning on "Human Activity Recognition Using Smartphones" data from UCI and generates a tidy dataset.
 
