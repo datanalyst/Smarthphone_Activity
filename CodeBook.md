@@ -93,7 +93,6 @@ Additional vectors obtained by averaging the signals in a signal window sample. 
 - tBodyAccJerkMean
 - tBodyGyroMean
 - tBodyGyroJerkMean
-
 Note: features are normalized and bounded within [-1,1].
 
 ##Transformations
@@ -107,15 +106,10 @@ Download UCI data (with the download function) from the URL
 
 Extracts the zipped files in a UCI HAR Dataset folder in your local working directory with the unzip function
 
-With the read.table function, it loads from UCI HAR Dataset folder into R environment:
-   - the features.txt file into the dataframe "features"
-   - the activity_labels.txt file into the dataframe "activities"
-   - the subject_test.txt file into the dataframes "testData_sub"
-   - the y_test.txt file into the dataframe "testData_act"
-   - the X_test.txt file into the dataframe "testData"
-   - the subject_train.txt file into the dataframes "trainData_sub"
-   - the y_train.txt file into the dataframe "trainData_act"
-   - the X_train.txt file into the dataframe "trainData"
+read.table function is used to load into R environment data, activities and subjects of both test and training datasets, as well as the features and the activity_labels:
+
+
+
 
 ###Descriptive activity names to name the activities in the data set
 
