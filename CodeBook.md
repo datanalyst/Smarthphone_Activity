@@ -116,8 +116,8 @@ read.table function is used to load into R environment data, activities and subj
 
 features = read.table('./UCI HAR Dataset/features.txt',header=FALSE, colClasses="character")
 activities = read.table('./UCI HAR Dataset/activity_labels.txt',header=FALSE,colClasses="character")
-testData = read.table("./UCI HAR Dataset/test/X_test.txt",header=FALSE) # 2947 obs. of 561 variables
-testData_act = read.table("./UCI HAR Dataset/test/y_test.txt",header=FALSE) # 7352 obs. of 561 variables
+testData = read.table("./UCI HAR Dataset/test/X_test.txt",header=FALSE) 
+testData_act = read.table("./UCI HAR Dataset/test/y_test.txt",header=FALSE) 
 testData_sub = read.table("./UCI HAR Dataset/test/subject_test.txt",header=FALSE)
 trainData = read.table("./UCI HAR Dataset/train/X_train.txt",header=FALSE)
 trainData_act = read.table("./UCI HAR Dataset/train/y_train.txt",header=FALSE)
