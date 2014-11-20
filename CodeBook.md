@@ -100,11 +100,14 @@ Note: features are normalized and bounded within [-1,1].
 
 ###Load test and training sets and the activities
 
-The data set has been stored in the UCI HAR Dataset/ directory.
+Load relevant R libraries:
+library(reshape2)
 
-1. Load relevant R libraries: library(reshape2)
-2. Download UCI data (with the download function) from the URL and extracts the zipped files in a UCI HAR Dataset folder in your local working directory (with the unzip function)
-3. With the read.table function, it loads from UCI HAR Dataset folder into R environment:
+Download UCI data (with the download function) from the URL 
+
+Extracts the zipped files in a UCI HAR Dataset folder in your local working directory with the unzip function
+
+With the read.table function, it loads from UCI HAR Dataset folder into R environment:
    - the features.txt file into the dataframe "features"
    - the activity_labels.txt file into the dataframe "activities"
    - the subject_test.txt file into the dataframes "testData_sub"
@@ -116,23 +119,24 @@ The data set has been stored in the UCI HAR Dataset/ directory.
 
 ###Descriptive activity names to name the activities in the data set
 
-Replaces the activity class names in the testData_act and trainData_act dataframes with their label names.
+The class labels linked with their activity names are loaded from the activity_labels.txt file. The numbers of the testData_act and trainData_act data frames are replaced by those names.
 
 ###Appropriately labels the data set with descriptive activity names
 
-Using the colnames function - it labels testData and trainData dataframes, using the features.txt, with the information about the variables used on the feature vector. The Activity and Subject columns are also named properly.
+Each data frame of the data set is labeled - using the features.txt - with the information about the variables used on the feature vector. The Activity and Subject columns are also named properly before merging them to the test and train dataset.
 
 ###Extract only the measurements on the mean and standard deviation for each measurement
 
-With the grepl function, it creates a list of mean and std variables (extract_features) that it uses to extract from the test and the train dataframes only the measurements on the mean and standard deviation for each measurement, via subsetting testData and trainData.
+A list of mean() and std() variables (extract_features) is created used the grepl function. It is used to extract from the test and the train dataframes only the measurements on the mean and standard deviation for each measurement, via subsetting testData and trainData.
 
 ###Merge test and training sets into one data set, including the activities
 
 With the cbind function, testData and trainData are respectively merged to their activities and their subjects.
-testData table is then appended to the trainData dataframe with the rbind function in order to generate a unique dataframe, called Data, containing the means and the standard deviations of all the measurements of both the test and the train samples, together with their activities and their sujbects.
+
+testData table is then appended to the trainData dataframe with the rbind function to generate a Data dataframe, containing the means and the standard deviations of all the measurements of both the test and the train samples, together with their activities and sujbects.
 
 ###Creates a second, independent tidy data set with the average of each variable for each activity and each subject
 
-In order to create a second, independent tidy data set with the average of each variable for each activity and each subject I need to "reshape" the Data table. Using the melt function, I first melt the Data dataframe using "Subject" and "Activity" as id - generating the melt_data table. Then using the dcast function, I cast the melted dataframe, calculating the average of the variables for each activity and subject.
+To create a data set with the average of each variable for each activity and each subject I need to "reshape" the Data table. Using the melt function, I first melt the Data dataframe using "Subject" and "Activity" as id - generating the melt_data table. Then using the dcast function, I cast the melted dataframe, calculating the average of the variables for each activity and subject.
 
-Finaly I get a tidy_data table, with 180 obs. of 68 variables. The new dataset is saved with the write.table function in "tidy_data.txt" file in local working directory. 
+Finaly a tidy data table is created with the average of each measurement per activity/subject combination. The new dataset has 180 obs. and 68 variables and it is saved with the write.table function in "tidy_data.txt" file in local working directory. 
