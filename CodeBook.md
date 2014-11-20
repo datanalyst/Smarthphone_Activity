@@ -96,7 +96,7 @@ Additional vectors obtained by averaging the signals in a signal window sample. 
 
 Note: features are normalized and bounded within [-1,1].
 
-##Transformation
+##Transformations
 
 ###Load test and training sets and the activities
 
@@ -113,10 +113,26 @@ The data set has been stored in the UCI HAR Dataset/ directory.
    - the subject_train.txt file into the dataframes "trainData_sub"
    - the y_train.txt file into the dataframe "trainData_act"
    - the X_train.txt file into the dataframe "trainData"
-4. Replaces the activity class names in the testData_act and trainData_act dataframes with their label names.
-5. Using the colnames function - it labels testData and trainData dataframes, using the features.txt, with the information about the variables used on the feature vector. The Activity and Subject columns are also named properly.
-6. With the grepl function, it creates a list of mean and std variables (extract_features) that it uses to extract from the test and the train dataframes only the measurements on the mean and standard deviation for each measurement, via subsetting testData and trainData.
-7. With the cbind function, testData and trainData are respectively merged to their activities and their subjects.
-8. testData table is then appended to the trainData dataframe with the rbind function in order to generate a unique dataframe, called Data, containing the means and the standard deviations of all the measurements of both the test and the train samples, together with their activities and their sujbects.
-9. In order to create a second, independent tidy data set with the average of each variable for each activity and each subject I need to "reshape" the Data table. Using the melt function, I first melt the Data dataframe using "Subject" and "Activity" as id - generating the melt_data table. Then using the dcast function, I cast the melted dataframe, calculating the average of the variables for each activity and subject.
-10. Finaly I get a tidy_data table, with 180 obs. of 68 variables. The new dataset is saved with the write.table function in "tidy_data.txt" file in local working directory. 
+
+###Descriptive activity names to name the activities in the data set
+
+Replaces the activity class names in the testData_act and trainData_act dataframes with their label names.
+
+###Appropriately labels the data set with descriptive activity names
+
+Using the colnames function - it labels testData and trainData dataframes, using the features.txt, with the information about the variables used on the feature vector. The Activity and Subject columns are also named properly.
+
+###Extract only the measurements on the mean and standard deviation for each measurement
+
+With the grepl function, it creates a list of mean and std variables (extract_features) that it uses to extract from the test and the train dataframes only the measurements on the mean and standard deviation for each measurement, via subsetting testData and trainData.
+
+###Merge test and training sets into one data set, including the activities
+
+With the cbind function, testData and trainData are respectively merged to their activities and their subjects.
+testData table is then appended to the trainData dataframe with the rbind function in order to generate a unique dataframe, called Data, containing the means and the standard deviations of all the measurements of both the test and the train samples, together with their activities and their sujbects.
+
+###Creates a second, independent tidy data set with the average of each variable for each activity and each subject
+
+In order to create a second, independent tidy data set with the average of each variable for each activity and each subject I need to "reshape" the Data table. Using the melt function, I first melt the Data dataframe using "Subject" and "Activity" as id - generating the melt_data table. Then using the dcast function, I cast the melted dataframe, calculating the average of the variables for each activity and subject.
+
+Finaly I get a tidy_data table, with 180 obs. of 68 variables. The new dataset is saved with the write.table function in "tidy_data.txt" file in local working directory. 
