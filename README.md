@@ -18,4 +18,4 @@ The purpose of this project is to create an R script called run_analysis.R that 
 
 Download the "run_analysis.R" file in your working directory, run it with R/R Studio and execute it without any parameters. 
 
-The result of the execution is the tidy_data.txt file that stores the data (mean and standard deviation of each measurement per activity&subject) for later analysis.
+The result of the execution is the tidy_data.txt file that stores the data (mean and standard deviation of each measurement per activity and subject) for later analysis.
